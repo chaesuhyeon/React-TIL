@@ -1,6 +1,7 @@
+/* eslint-disable */
+
 import { useState } from 'react';
 import './App.css';
-
 
 function Nav(props) {
   const lis = []
@@ -57,6 +58,29 @@ function Create(props){
   </article>
 }
 
+
+function Update(props){
+  const [title, setTitle] = useState([props.title]);
+  const [body, setBody] = useState([props.body]);
+
+  return <article>
+  <h2>Update</h2>
+  <form onSubmit={(event)=>{
+    event.preventDefault();
+
+    // target : event를 발생시킨 태그 --> 여기서는 form
+    const title = event.target.title.value; // form 태그 -> input -> title의 value
+    const body = event.target.body.value; // form 태그 -> textarea -> body의 value
+
+    props.onUpdate(title,body);
+  }}>
+    <p><input type="text" name="title" placeholder='title' value={title} onChange ={(event)=>{ setTitle(event.target.value) }}/></p>
+    <p><textarea name='body' placeholder='body' value={body} onChange ={(event)=>{ setBody(event.target.value) }}></textarea></p>
+    <p><input type='submit' value='Update'/></p>
+  </form>
+</article>
+}
+
 function App() {
 
   const[mode, setMode] = useState('WELCOME');
@@ -69,6 +93,7 @@ function App() {
 ])
 
   let content = null;
+  let contextControl = null;
 
   if(mode === 'WELCOME') {
       content = <Article title="Welcome" body="Hello, WEB"/>
@@ -81,6 +106,26 @@ function App() {
       }
     }
       content = <Article title={title} body={body}/>
+      contextControl=  <>
+      <li><a href={'/update/' + id} onClick={(event)=>{
+        event.preventDefault();
+        setMode('UPDATE');
+      }}>Update</a></li>
+      <li><input type="button" value="Delete" onClick={()=>{
+        const newTopics = []
+        for(let i=0; i<topics.length;i++){
+          if(topics[i].id !== id){
+            newTopics.push(topics[i]);
+          }
+        }
+        setTopics(newTopics);
+        setMode('WELCOME');
+        setId(nextId-1);
+        setNextId(nextId+1);
+        
+      }}/></li>
+      </>
+
   } else if(mode === 'CREATE'){
     content = <Create onCreate={(_title, _body)=>{
       const newTopic = {id:nextId, title:_title , body:_body}
@@ -88,10 +133,27 @@ function App() {
       newTopics.push(newTopic);
       setTopics(newTopics);
       setMode('READ');
-      setId(nextId);
-      setNextId(nextId+1);
-
     }}></Create>
+  } else if(mode === 'UPDATE'){
+    let title, body = null;
+    for(let i=0; i<topics.length;i++){
+      if(topics[i].id === id){
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+    content = <Update title={title} body={body} onUpdate={(title,body)=>{
+      const newTopics = [...topics]
+      const updateTopic = {id:id, title:title, body:body}
+      for(let i= 0; i<newTopics.length; i++){
+        if(newTopics[i].id===id){
+          newTopics[i] = updateTopic;
+          break;
+        }
+      }
+      setTopics(newTopics);
+      setMode('READ');
+    }}></Update>
   }
     
   return (
@@ -104,10 +166,12 @@ function App() {
         setId(_id);
       }}></Nav>
       {content}
-      <a href='/create' onClick={(event)=>{
+      <li><a href='/create' onClick={(event)=>{
         event.preventDefault();
         setMode('CREATE');
-      }}>Create</a>
+      }}>Create</a></li>
+
+      {contextControl}
     </div>
   );
 }
