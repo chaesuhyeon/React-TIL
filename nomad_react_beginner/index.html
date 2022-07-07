@@ -13,18 +13,27 @@
 
     const root = document.getElementById("root");
      
-    const Title =(
+    const Title = () => (
                  <h3 id="title"  onMouseEnter={()=>console.log('mouse enter')} >
                       Hello I'm a Title 
                   </h3>
      );
  
-    const Button = <button style={{backgroundColor: "tomato"}} onClick={()=>console.log('im clicked')}>Click me</button>
+    const Button = () => (
+        <button style={{backgroundColor: "tomato"}} onClick={()=>console.log('im clicked')}>
+            Click me
+        </button>
+        )
      
-    const container = React.createElement("div", null, [Title, Button])  // span다음에 button 랜더
-    ReactDOM.render(container, root) // span다음에 button 랜더
+    // const container = React.createElement("div", null, [Title, Button])  // span다음에 button 랜더
+    const Container = ()=>( <div>
+                            <Title/>
+                            <Button/>
+                      </div>
+                      );
+    ReactDOM.render(<Container/>, root) // span다음에 button 랜더
 
-    
+
     // const span = React.createElement("span", {id : "sexy-span" , style : {color : "red"} } , "Hello I'm a span" ) // createElement() 안에 적은 span은 우리가 생성하고자 하는 HTML 태그와 같은 이름이어야 함  // React JS로 element 생성
     // ReactDOM.render(span, root)  -->  span을 id값이 root 인곳에 render
     
@@ -42,6 +51,7 @@
     // }, "Click me") 
 
     // const container = React.createElement("div", null, [h3, btn])  // span다음에 button 랜더
+    // ReactDOM.render(container, root) // span다음에 button 랜더
 
 </script>
 </html>
