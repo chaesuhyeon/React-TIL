@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- 바닐라 js -->
+<html>
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    
+    const root = document.getElementById("root");
+
+    function App() {
+        const [amount, setAmount] = React.useState(0);
+        const [hours, setHours] = React.useState();
+        const [inverted , setInverted] = React.useState(false);
+        const onChange = (event) => {
+            setAmount(event.target.value);
+        }
+        const reset = () => {
+            setAmount(0);
+        }
+
+        const onInvert = () =>{
+            reset();
+            setInverted((current)=> !current); // 현재값(flipped)이 true면 false로 변경, false면 true로 변경
+        }
+        return( 
+            <div>
+                <h1 className="hi"> Super Converter </h1>
+
+                <div>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input 
+                        value = {inverted ? amount*60 : amount} 
+                        id="minutes" 
+                        placeholder="Minutes" 
+                        type="number"
+                        onChange={onChange} 
+                        disabled={inverted}/>
+                </div>
+
+                <div>
+                    <label htmlFor="hours">Hours</label>
+                    <input 
+                        value={inverted ? amount : Math.round(amount / 60)} 
+                        id="hours" 
+                        placeholder="Hours" 
+                        type="number" 
+                        onChange={onChange}
+                        disabled={!inverted}/>
+                </div>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+                </div>
+        );
+    }
+
+    ReactDOM.render(<App/>, root) // span다음에 button 랜더
+
+</script>
+</html>
