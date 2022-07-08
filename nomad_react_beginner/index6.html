@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- 바닐라 js -->
+<html>
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+    function Btn({text, fontSize}){
+        return <button
+                    style={{
+                        backgroundColor : "tomato",
+                        color : "white",
+                        padding : "10px 20px",
+                        border : 0,
+                        borderRadius : 10,
+                        fontSize
+                    }}>{text}</button>
+    }
+
+    function App() {
+        return( 
+            <div>
+                <Btn text = "Save Changes" fontSize={18}/>
+            </div>
+        );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App/>, root) // span다음에 button 랜더
+
+</script>
+</html>
