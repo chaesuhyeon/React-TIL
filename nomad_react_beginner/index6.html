@@ -23,6 +23,11 @@
                     }}>{text}</button>
     }
 
+    Btn.propTypes = {
+        text : PropTypes.string.isRequired, // isRequired를 사용하면 text prop은 무조건 있어야함
+        fontSize : PropTypes.number.isRequired,
+    };
+
     function App() {
         return( 
             <div>
