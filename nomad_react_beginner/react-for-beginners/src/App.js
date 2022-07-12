@@ -1,17 +1,32 @@
 import { useState, useEffect } from "react";
 
-function App() {
-  const [counter, setValue] = useState(0);
-  const onClick = () => setValue((prev) => prev + 1);
-  console.log("i run all the time");
+function Hello(){
+  // function byeFn(){
+  //   console.log("bye :(");
+  // }
 
-  useEffect(() => {
-    console.log("CALL THE API ");
-  } ,[]);
+  // function hiFn() {
+  //   console.log("created :)");
+  //   return byeFn;
+  // }
+
+//   useEffect(hiFn, [])
+//   return <h1>Hello</h1>;
+
+  useEffect(()=>{
+    console.log("hi :)");
+    return () => console.log("bye :(");
+  }, []);
+}
+
+
+function App() {
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing((prev) => !prev);
   return ( 
   <div>
-    <h1>{counter}</h1>
-    <button onClick={onClick}>click me</button>
+    {showing ? <Hello/> : null} {/* 자바 스크립트 쓸 때는 중괄호 { }  사용*/}
+    <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
   </div>
   
   );
