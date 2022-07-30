@@ -10,11 +10,12 @@ const Display = (props) => {
   )
 }
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = ({subscribers}) =>{
   return {
-    count : state.count
+    count : subscribers.count
   }
 } 
 
 
 export default connect(mapStateToProps)(Display)
+

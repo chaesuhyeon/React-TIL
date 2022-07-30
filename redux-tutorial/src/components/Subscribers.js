@@ -1,7 +1,7 @@
 // rafce 
 import React from 'react'
 import {connect} from 'react-redux'
-import { addSubscriber } from './../redux/subscribers/actions';
+import { addSubscriber } from './../redux/index';
 
 const Subscribers = ({count, addSubscriber}) => {
   return (
@@ -13,8 +13,10 @@ const Subscribers = ({count, addSubscriber}) => {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state) // rootReducer에 정의해놓은 views와 subscribers가 있고, 그 안에 count가 있음
   return {
-    count : state.count // count가 Subscribers의 props으로 전달됨
+    count : state.subscribers.count // count가 Subscribers의 props으로 전달됨
+    //root 
   }
 }
 

@@ -1,9 +1,9 @@
 import {createStore} from 'redux';
-import subcribersReducer from './subscribers/reducer';
+import rootReducer from './rootReducer';
 
 // action
 // reducer
 // store
-const store = createStore(subcribersReducer); // createStore(reducer)
+const store = createStore(rootReducer); // createStore(reducer)
 
 export default store;

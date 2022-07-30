@@ -3,7 +3,7 @@ import { ADD_SUBSCRIBER, REMOVE_SUBSCRIBER } from "./type"
 const initialState = {
     count : 370
 }
-const subcribersReducer = (state = initialState, action) => {
+const subscribersReducer = (state = initialState, action) => {
     switch(action.type){
         case ADD_SUBSCRIBER:
             return {
@@ -21,4 +21,4 @@ const subcribersReducer = (state = initialState, action) => {
     }
 }
 
-export default subcribersReducer;
+export default subscribersReducer;
