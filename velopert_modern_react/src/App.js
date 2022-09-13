@@ -3,6 +3,7 @@ import Counter from './Counter';
 // import Hello from './Hello';
 // import Wrapper from './Wrapper';
 import InputSample from './InputSample';
+import InputSample2 from './InputSample2';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
     // </Wrapper>
     <div>
       {/* <Counter /> */}
-      <InputSample />
+      {/* <InputSample /> */}
+      <InputSample2/>
     </div>
   );
 }

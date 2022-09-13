@@ -4,17 +4,17 @@ function InputSample() {
   const [text, setText] = useState('');
   
   const onChange=(e) =>{
-    // setText(e.target.value);
+    setText(e.target.value);
   }
   const onReset=()=>{
-    // setText('');
+     setText('');
   }
 
   return (
     <div>
       <input placeholder='이름' />
       <input placeholder='닉네임' />
-        {/* <input  onChange={onChange} value={text}/> */}
+        <input  onChange={onChange} value={text}/>
         <button onClick={onReset}>초기화</button>
         <div>
             <b>값 : </b>
