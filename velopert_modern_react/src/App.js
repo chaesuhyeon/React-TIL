@@ -71,6 +71,13 @@ function App() {
     setUsers(users.filter(user => user.id !== id));
   }
 
+  const onToggle = (id) => {
+    setUsers(
+      users.map(user=>
+        user.id === id? {...user, active: !user.active} : user)
+    )
+  }
+
   return (
     // <Wrapper>
     //     <Hello name="react" color ="red" isSpecial/>  {/*  props를 이름만 작성하고 값 설정을 생략하면 이를 true로 설정한  것으로 간주 */}
@@ -81,7 +88,7 @@ function App() {
       {/* <InputSample /> */}
       {/* <InputSample2/> */}
       <CreateUser username={username} email={email} onChange={onChange} onCreate={onCreate}/>
-      <UserList users = {users} onRemove={onRemove}/>
+      <UserList users = {users} onRemove={onRemove}  onToggle={onToggle}/>
     </div>
   );
 }

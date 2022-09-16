@@ -1,6 +1,6 @@
 import React from 'react';
 
-function User({ user, onRemove }) {
+function User({ user, onRemove , onToggle }) {
   return (
     <div>  
       <b 
@@ -8,6 +8,7 @@ function User({ user, onRemove }) {
             cursor : 'pointer',
             color : user.active ? 'green' : 'black'
           }}
+          onClick={()=> onToggle(user.id)}
        > 
           {user.username}
     </b> 
@@ -18,7 +19,7 @@ function User({ user, onRemove }) {
   );
 }
 
-function UserList({users , onRemove}) {
+function UserList({users , onRemove, onToggle}) {
   return (
     <div>
       {/* <User user={users[0]} />
@@ -27,7 +28,7 @@ function UserList({users , onRemove}) {
 
       {/* 고유값이 있는 경우 */}
       {users.map(user => (
-        <User user={user}  key={user.id} onRemove={onRemove}/>
+        <User user={user}  key={user.id} onRemove={onRemove} onToggle={onToggle} />
       ))}
 
       {/* 고유값이 없는 경우 */}
