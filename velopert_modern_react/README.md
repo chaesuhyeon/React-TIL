@@ -151,3 +151,55 @@ setUsers(users.concat(user)) // concat 함수 이용
 <br>
 
 ### 배열에 항목 수정하기
+- 배열의 불변성을 유지하면서 배열을 업데이트 할 때도 `map`함수를 사용할 수 있음
+```javascript
+const onToggle = id => {
+    setUsers(
+      users.map(user =>
+        user.id === id ? { ...user, active: !user.active } : user
+      )
+    );
+  };
+```
+- setUser 안에서 map함수를 실행하여 return 된 새로운 배열이 결국 setUser에 입력되어 toggle 시 배열이 바뀌는 것
+
+<br>
+
+### useEffect를 사용하여 마운트/언마운트/업데이트시 할  작업 설정하기
+- `useEffect`를 사용할 때에는 첫번째 파라미터에는 `함수`, 두번째 파라미터에는 `의존값이 들어있는 배열`(deps)을 넣음
+- `deps`배열을 비우게 된다면, 컴포넌트가 처음 나타날 때만 useEffect에 등록한 함수가 호출 됨
+- `useEffect` 에서는 함수를 반환할 수 있는데 이를 `cleanup`함수라고 부름. deps가 비어있는 경우에는 컴포넌트가 사라질 때 cleanup함수가 호출됨 (useEffect 안에서 return할 때 실행됨)
+```javascript
+  useEffect(()=> {
+    console.log("컴포넌트가 화면에 나타남");
+    return () => {
+      console.log("컴포넌트가 화면에서 사라짐");
+    }
+  }, []);
+```
+- `deps`에 특정 값을 넣게 되면, 컴포넌트가 처음 마운트 될 때에도 호출이 되고 ,지정한 값이 바뀔 때에도 호출이 됨. 그리고 deps안에 특정 값이 있다면 언마운트시에도 호출이 되고, 값이 바뀌기 직전에도 호출이 됨
+```javascript
+  useEffect(()=> {
+    console.log("user값이 설정됨");
+    console.log(user);
+    return () => {
+      console.log("user가 바뀌기 전...");
+      console.log(user);
+    }
+  }, [user]);
+```
+- useEffect 안에서 사용하는 상태나 , props가 있다면, useEffect의 deps에 넣어줘야 함. 만약에 넣지 않는다면 useEffect에 등록한 함수가 실행 될 때 최신 props 상태를 가르키지 않게 됨
+- deps파라미터를 생략한다면 , 컴포넌트가 랜더링 될 때 마다 호출이 됨
+```javascript
+  useEffect(()=> {
+    return () => {
+
+      console.log(user);
+    }
+  })
+```
+- 참고로 리액트 컴포넌트는 기본적으로 부모 컴포넌트가 랜더링 되면 자식 컴포넌트 또한 랜더링 됨(바뀐 내용이 없을지라도)
+
+
+
+
