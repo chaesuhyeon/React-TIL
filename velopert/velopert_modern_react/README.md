@@ -200,6 +200,46 @@ const onToggle = id => {
 ```
 - 참고로 리액트 컴포넌트는 기본적으로 부모 컴포넌트가 랜더링 되면 자식 컴포넌트 또한 랜더링 됨(바뀐 내용이 없을지라도)
 
+<br>
 
+### useMemo를 사용하여 연산한 값 재사용하기
+- 첫 번째 파라미터에는 어떻게 연산할지 정의하는 `함수` 
+- 두 번째 파라미터에는 `deps 배열`
+- 배열 안에 넣은 내용이 바뀌면 , 등록한 함수를 호출해서 값을 연산해주고, 만약에 내용이 바뀌지 않았다면 이전에 연산한 값을 재사용하게 됨
+```javascript
+function countActiveUsers(users){
+  console.log("활성 사용자 수를 세는 중");
+  return users.filter(user=>user.active).length;
+}
+
+  const count = useMemo(()=> countActiveUsers(users), [users]);
+```
+
+### useCallback을 사용하여 함수 재사용하기
+- useMemo는 특정 결과값을 재사용할 때 사용했다면 useCallback은 `특정 함수`를 새로 만들지 않고 `재사용` 하고 싶을 때 사용
+- **주의할 점**  : 함수 안에서 사용하는 `상태` or `props`가 있다면 `deps배열에  포함`시켜야 함(포함시키지 않으면 함수 내에서 해당 값들을 참조할 때 가장 최신 값을 참조 할 것이라고 보장할 수 없음)  . props로 받아온 함수가 있다면 이 또한 deps에 넣어줘야 함
+```javascript
+  const onRemove = useCallback(
+    id => {
+      setUsers(users.filter(user => user.id !== id));
+    },
+    [users]
+  );
+```
+
+### React.memo를 사용한 컴포넌트 리렌더링 방지
+- 컴포넌트의 props가 바뀌지 않았다면 , 리렌더링을 방지하여 컴포넌트의 리렌더링 성능 최적화를 해줄 수 있음
+사용법은 export할 때 React.memo로 감싸주기만 하면 됨 
+```javascript
+  export default React.memo(CreateUser);
+```
+- 함수형 업데이트 사용
+```javascript
+  const onRemove = useCallback(id => {
+    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
+    // = user.id 가 id 인 것을 제거함
+    setUsers(users => users.filter(user => user.id !== id));  // 함수형 업데이트
+  }, []);
+```
 
 
