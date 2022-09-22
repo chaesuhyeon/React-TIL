@@ -214,6 +214,7 @@ function countActiveUsers(users){
 
   const count = useMemo(()=> countActiveUsers(users), [users]);
 ```
+<br>
 
 ### useCallback을 사용하여 함수 재사용하기
 - useMemo는 특정 결과값을 재사용할 때 사용했다면 useCallback은 `특정 함수`를 새로 만들지 않고 `재사용` 하고 싶을 때 사용
@@ -226,6 +227,7 @@ function countActiveUsers(users){
     [users]
   );
 ```
+<br>
 
 ### React.memo를 사용한 컴포넌트 리렌더링 방지
 - 컴포넌트의 props가 바뀌지 않았다면 , 리렌더링을 방지하여 컴포넌트의 리렌더링 성능 최적화를 해줄 수 있음
@@ -241,5 +243,31 @@ function countActiveUsers(users){
     setUsers(users => users.filter(user => user.id !== id));  // 함수형 업데이트
   }, []);
 ```
+<br>
 
+### useReducer를 사용하여 상태 업데이트 로직 분리하기
+- `useReducer`를 사용하면 컴포넌트의 상태 업데이트 로직을 컴포넌트에서 분리시킬 수 있음
+- `reducer` : 현재 상태와 액션 객체를 파라미터로 받아와서 새로운 상태를 반환해주는 함수
+  - reducer에서 반환하는 상태는 컴포넌트가 지닐 새로운 상태
+  - action은 업데이트를 위한 정보를 가지고 있음. 주로 type값을 지닌 객체 형태로 사용함
+```javascript
+function reducer(state, action) {
+  // 새로운 상태를 만드는 로직
+  // const nextState = ...
+  return nextState;
+}
+```
+<br>
+
+- useReducer() 사용법
+```javascript
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+- state : 컴포넌트에서 사용 할 수 있는 상태
+- dispatch : 액션을 발생시키는 함수
+- useReducer의 첫 번째 파라미터 : reudcer함수
+- useReducer의 두 번째 파라미터 : 초기 상태
+
+
+<br>
 
