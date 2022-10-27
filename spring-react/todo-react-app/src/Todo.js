@@ -1,10 +1,17 @@
 import { DeleteOutlined } from "@mui/icons-material";
-import { Checkbox, IconButton, InputBase, ListItem, ListItemSecondaryAction, ListItemText } from "@mui/material";
-import React, { useState } from "react"
+import {
+  Checkbox,
+  IconButton,
+  InputBase,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+} from "@mui/material";
+import React, { useState } from "react";
 
 const Todo = (props) => {
   const [item, setItem] = useState(props.item);
-  const [readOnly , setReadOnly] = useState(true)
+  const [readOnly, setReadOnly] = useState(true);
 
   const deleteItem = props.deleteItem;
   const editItem = props.editItem;
@@ -12,41 +19,41 @@ const Todo = (props) => {
   // deleteEventHandler
   const deleteEventHandler = () => {
     deleteItem(item);
-  }
+  };
 
   //editEventHandler
-  const editEventHandler=(e) => {
-    item.title = e.target.value;
-    editItem();
-  }
+  const editEventHandler = (e) => {
+    // item.title = e.target.value;
+    setItem({ ...item, title: e.target.value });
+  };
 
   //turnOffReadOnly
   const turnOffReadOnly = () => {
     setReadOnly(false);
-  }
+  };
 
-  //turnOnReadOnly 
+  //turnOnReadOnly
   const turnOnReadOnly = (e) => {
-    if(e.key === "Enter"){
-      setReadOnly(true)
+    if (e.key === "Enter") {
+      setReadOnly(true);
+      editItem(item);
     }
   };
 
   //checkboxEventHandler
   const checkboxEventHandler = (e) => {
     item.done = e.target.checked;
-    editItem();
-  }
-
+    editItem(item);
+  };
 
   return (
     <ListItem>
-      <Checkbox checked={item.done}  onChange={checkboxEventHandler}/>
+      <Checkbox checked={item.done} onChange={checkboxEventHandler} />
       <ListItemText>
         <InputBase
           inputProps={{
-            "aria-label" : "nacked",
-            readOnly : readOnly 
+            "aria-label": "nacked",
+            readOnly: readOnly,
           }}
           onClick={turnOffReadOnly}
           onKeyDown={turnOnReadOnly}
@@ -61,7 +68,7 @@ const Todo = (props) => {
       </ListItemText>
       <ListItemSecondaryAction>
         <IconButton aria-label="Delete Todo" onClick={deleteEventHandler}>
-          <DeleteOutlined/>
+          <DeleteOutlined />
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>
