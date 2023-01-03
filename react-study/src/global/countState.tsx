@@ -12,6 +12,9 @@ const countState = atom<number>({
     default: 0,
 });
 
+/**
+ * import 깔끔하게 하기 위해서 만든 커스텀 hook
+ */
 function useCountState() {
     const [count, setCount] = useRecoilState(countState);
     return { count, setCount };
