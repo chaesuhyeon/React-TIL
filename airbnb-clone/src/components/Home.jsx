@@ -10,8 +10,10 @@ function Home() {
     <>
       <Header />
       <hr />
-      <Category />
-      <Body />
+      <Wrap>
+        <Category />
+        <Body />
+      </Wrap>
     </>
   );
 }
@@ -19,7 +21,5 @@ function Home() {
 export default Home;
 
 const Wrap = styled.div`
-  display: block;
-  width: 1512px;
-  margin: auto;
+  margin-left: 10px;
 `;

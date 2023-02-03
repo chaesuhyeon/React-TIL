@@ -23,19 +23,21 @@ function Category() {
             </g>
           </Icon>
         </Button>
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
-        <CategoryButtonItem />
+        <div style={{ display: "flex", overflow: "hidden" }}>
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+          <CategoryButtonItem />
+        </div>
         <Button width={"28px"} height={"28px"} radius={"30px"}>
           <Icon
             width={"12px"}
@@ -94,6 +96,7 @@ const CategoryItem = styled.div`
   width: 100%;
   height: 78px;
   align-items: center;
+  overflow: hidden;
 `;
 
 const Button = styled.button`
@@ -105,6 +108,7 @@ const Button = styled.button`
   border: 1px solid #dddddd;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 const Icon = styled.svg`

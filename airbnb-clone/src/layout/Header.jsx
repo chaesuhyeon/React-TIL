@@ -49,7 +49,12 @@ function Header() {
             </div>
           </Button>
 
-          <Button width={"77px"} height={"42px"} radius={"30px"}>
+          <Button
+            width={"77px"}
+            height={"42px"}
+            radius={"30px"}
+            border={"1px solid #dddddd"}
+          >
             dd
           </Button>
         </HostWrap>
@@ -76,13 +81,6 @@ const WrapMenu = styled.div`
   margin: auto;
 `;
 
-// const Icon = styled.svg`
-//     width: ${(props) => props.width};
-//     height: 32px;
-//     display: block;
-//     color: ${(props) => props.color};
-// `;
-
 const Icon = styled.svg`
 
   color: ${(props) => props.color};
@@ -102,9 +100,10 @@ const Button = styled.button`
   margin: ${(props) => props.margin};
   border-radius: ${(props) => props.radius};
   background-color: white;
-  border: 1px solid #dddddd;
   align-items: center;
   justify-content: center;
+  border: ${(props) => props.border || "none"};
+  font-weight: bold;
 `;
 
 const LogoWrap = styled.div`
@@ -115,14 +114,20 @@ const LogoWrap = styled.div`
 
 const SearchWrap = styled.div`
   width: 382.71px;
-  height: 80px;
+  height: 42px;
   padding: 3px;
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #dddddd;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 13px;
 `;
 
 const HostWrap = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   width: 484.65px;
   height: 80px;
 `;
