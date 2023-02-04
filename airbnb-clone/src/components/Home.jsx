@@ -6,20 +6,20 @@ import Category from "../layout/Category";
 import Header from "../layout/Header";
 
 function Home() {
-  return (
-    <>
-      <Header />
-      <hr />
-      <Wrap>
-        <Category />
-        <Body />
-      </Wrap>
-    </>
-  );
+    return (
+        <>
+            <Header />
+            <Wrap>
+                <hr />
+                <Category />
+                <Body />
+            </Wrap>
+        </>
+    );
 }
 
 export default Home;
 
 const Wrap = styled.div`
-  margin-left: 10px;
+    margin: 20px 40px;
 `;
