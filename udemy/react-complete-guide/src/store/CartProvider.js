@@ -12,10 +12,11 @@ const cartReducer = (state, action) => {
             state.totalAmount + action.item.price * action.item.amount;
 
         const existingCartItemIndex = state.items.findIndex(
-            (item) => item.id == action.item.id
+            //items에 이미 있는 상품인지 체크한다. index가 반환되면 아이템이 장바구니에 있다는 뜻이다.
+            (item) => item.id === action.item.id
         );
 
-        const existingCartItem = state.items[existingCartItemIndex];
+        const existingCartItem = state.items[existingCartItemIndex]; //
         let updatedItems;
 
         if (existingCartItem) {
@@ -34,6 +35,34 @@ const cartReducer = (state, action) => {
             totalAmount: updatedTotalAmount,
         };
     }
+
+    if (action.type === "REMOVE") {
+        const existingCartItemIndex = state.items.findIndex(
+            (item) => item.id === action.id
+        );
+        const existingItem = state.items[existingCartItemIndex];
+        const updatedTotalAmount = state.totalAmount - existingItem.price;
+        let updatedItems;
+        if (existingItem.amount === 1) {
+            // 수량이 하나일 때 - 버튼을 클릭하면 수량이 없으므로 장바구니에서 완전히 삭제한다
+            updatedItems = state.items.filter((item) => item.id !== action.id); // id가 같은 항목만 삭제하고 같지 않은 항목은 장바구니에 그대로 냅둔다
+        } else {
+            // 삭제하는 것이 아니라 수량만 줄인다
+            const updatedItem = {
+                ...existingItem,
+                amount: existingItem.amount - 1,
+            };
+            updatedItems = [...state.items]; // 기존 배열을 복사해서 새로운 배열을 만든다
+            updatedItems[existingCartItemIndex] = updatedItem;
+        }
+
+        return {
+            // 새로운 객체를 반환한다.
+            items: updatedItems,
+            totalAmount: updatedTotalAmount,
+        };
+    }
+
     return defaultCartState;
 };
 
